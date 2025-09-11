@@ -3,32 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Виртуальный музей</title>
+    <title>Виртуальный музей | Погружение в историю</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Базовые стили */
+        /* Базовые стили и кастомный скроллбар */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Pragmatica Extended', Arial, sans-serif;
+            font-family: 'Pragmatica Extended', 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22;
+            --accent: #16a085;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-            background-color: #f8f5f0;
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f5f0 0%, #e6e2d8 100%);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(44, 62, 80, 0.05);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--secondary), var(--accent));
+            border-radius: 10px;
+            border: 2px solid #f8f5f0;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #d35400, #138a72);
         }
         
         /* Навигация */
         header {
-            background-color: #2c3e50;
+            background-color: rgba(44, 62, 80, 0.95);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
         }
         
         .nav-container {
@@ -41,8 +79,15 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            color: var(--secondary);
         }
         
         nav ul {
@@ -52,20 +97,38 @@
         
         nav ul li {
             margin-left: 2rem;
+            position: relative;
         }
         
         nav ul li a {
             color: white;
             text-decoration: none;
             transition: color 0.3s;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
         }
         
         nav ul li a:hover {
-            color: #e67e22;
+            color: var(--secondary);
         }
         
-        /* Герой секция с местом для виртуального тура */
+        /* Герой секция */
         .hero {
             height: 100vh;
             margin-top: 60px;
@@ -76,130 +139,408 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(230, 126, 34, 0.4) 100%);
+            z-index: -1;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            z-index: -2;
+            filter: brightness(0.7);
         }
         
         .virtual-tour-placeholder {
             width: 90%;
-            height: 80%;
-            background-color: #000;
+            height: 70%;
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
             margin-bottom: 2rem;
+            border: 2px solid var(--secondary);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .virtual-tour-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, var(--secondary));
+            animation: rotate-border 4s linear infinite;
+        }
+        
+        .virtual-tour-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+        }
+        
+        .virtual-tour-placeholder p {
+            z-index: 1;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .virtual-tour-placeholder i {
+            color: var(--secondary);
+            font-size: 3rem;
+            margin-right: 1rem;
         }
         
         .hero-content {
             max-width: 800px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1.5s ease;
         }
         
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #2c3e50;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
-            color: #555;
+            color: white;
         }
         
         .btn {
             display: inline-block;
-            background-color: #e67e22;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
+            padding: 1rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover:before {
+            width: 100%;
         }
         
         .btn:hover {
-            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
         /* Секции музея */
         .section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-            font-size: 2rem;
+            margin-bottom: 4rem;
+            color: var(--dark);
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            border-radius: 2px;
         }
         
         /* Экспонаты */
         .exhibits {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
             margin-top: 2rem;
         }
         
         .exhibit-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .exhibit-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .exhibit-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
         
         .exhibit-img {
-            height: 200px;
-            background-color: #ddd;
+            height: 220px;
+            background: linear-gradient(45deg, #2c3e50, #4a6491);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #777;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exhibit-img:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80') no-repeat center center/cover;
+            opacity: 0.7;
         }
         
         .exhibit-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
         
         .exhibit-content h3 {
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+        
+        .exhibit-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--accent);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
         }
         
         /* О музее */
         .about {
-            background-color: #2c3e50;
+            background: linear-gradient(to bottom, var(--primary) 0%, #1a2530 100%);
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            opacity: 0.1;
         }
         
         .about .section-title {
             color: white;
         }
         
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .stat i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .stat h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
         /* Контакты */
         .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
             text-align: center;
-            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
         }
         
         /* Футер */
         footer {
-            background-color: #2c3e50;
+            background: var(--dark);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
             margin-top: 3rem;
         }
         
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes rotate-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -207,11 +548,12 @@
             
             nav ul {
                 margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             nav ul li {
-                margin-left: 1rem;
-                margin-right: 1rem;
+                margin: 0.5rem 1rem;
             }
             
             .hero h1 {
@@ -219,7 +561,11 @@
             }
             
             .virtual-tour-placeholder {
-                height: 60%;
+                height: 50%;
+            }
+            
+            .exhibits {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -228,7 +574,9 @@
     <!-- Шапка сайта -->
     <header>
         <div class="nav-container">
-            <div class="logo">Виртуальный музей</div>
+            <div class="logo">
+                <i class="fas fa-museum"></i> Виртуальный музей
+            </div>
             <nav>
                 <ul>
                     <li><a href="#home">Главная</a></li>
@@ -242,13 +590,14 @@
 
     <!-- Главная секция с местом для виртуального тура -->
     <section id="home" class="hero">
+        <div class="hero-bg"></div>
         <div class="virtual-tour-placeholder">
-            <p>Здесь будет размещен виртуальный тур</p>
+            <p><i class="fas fa-vr-cardboard"></i> Здесь будет размещен виртуальный тур</p>
         </div>
         <div class="hero-content">
             <h1>Добро пожаловать в наш виртуальный музей</h1>
-            <p>Исследуйте уникальные экспонаты и погрузитесь в историю с помощью современных технологий</p>
-            <a href="#exhibits" class="btn">Начать иследование</a>
+            <p>Исследуйте уникальные экспонаты и погрузитесь в историю с помощью современных технологий виртуальной реальности</p>
+            <a href="#exhibits" class="btn">Начать исследование</a>
         </div>
     </section>
 
@@ -257,24 +606,62 @@
         <h2 class="section-title">Наши экспонаты</h2>
         <div class="exhibits">
             <div class="exhibit-card">
-                <div class="exhibit-img">Изображение экспоната 1</div>
+                <div class="exhibit-img">Исторический зал</div>
                 <div class="exhibit-content">
-                    <h3>Исторический артефакт</h3>
-                    <p>Описание экспоната и его историческая ценность. Интересные факты и детали.</p>
+                    <h3>Древние артефакты</h3>
+                    <p>Коллекция предметов быта древних цивилизаций, найденных во время археологических раскопок. Эти артефакты проливают свет на повседневную жизнь наших предков.</p>
+                    <p>Особый интерес представляет керамика с уникальными орнаментами, возраст которой оценивается в 3000 лет.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
+            
             <div class="exhibit-card">
-                <div class="exhibit-img">Изображение экспоната 2</div>
+                <div class="exhibit-img">Художественная галерея</div>
                 <div class="exhibit-content">
-                    <h3>Культурное наследие</h3>
-                    <p>Описание экспоната и его значение для культуры. Исторический контекст.</p>
+                    <h3>Картинная галерея</h3>
+                    <p>Произведения искусства от эпохи Возрождения до современного авангарда. В коллекции представлены работы как известных мастеров, так и молодых талантливых художников.</p>
+                    <p>Особое место занимает собрание картин местных художников, отражающих культурное наследие региона.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
+            
             <div class="exhibit-card">
-                <div class="exhibit-img">Изображение экспоната 3</div>
+                <div class="exhibit-img">Технологии будущего</div>
                 <div class="exhibit-content">
-                    <h3>Технологический прорыв</h3>
-                    <p>Описание иноваций и технологий, представленных в экспонате.</p>
+                    <h3>Инновационные разработки</h3>
+                    <p>Экспозиция, посвященная технологическому прогрессу и его влиянию на общество. Здесь вы можете увидеть первые компьютеры, прототипы роботов и многое другое.</p>
+                    <p>Интерактивные экспонаты позволяют посетителям самостоятельно провести эксперименты и узнать больше о принципах работы современных технологий.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="exhibit-card">
+                <div class="exhibit-img">Природный мир</div>
+                <div class="exhibit-content">
+                    <h3>Флора и фауна</h3>
+                    <p>Уникальная коллекция, представляющая разнообразие животного и растительного мира нашей планеты. От микроскопических организмов до гигантских млекопитающих.</p>
+                    <p>Особый акцент сделан на исчезающих видах и важности сохранения биоразнообразия для будущих поколений.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="exhibit-card">
+                <div class="exhibit-img">Космическая эра</div>
+                <div class="exhibit-content">
+                    <h3>Исследование космоса</h3>
+                    <p>Экспозиция, посвященная истории космических исследований и освоению космоса. Здесь вы можете увидеть модели космических кораблей, скафандры и даже метеориты.</p>
+                    <p>Специальный раздел рассказывает о вкладе отечественных ученых и инженеров в развитие космонавтики.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="exhibit-card">
+                <div class="exhibit-img">Этнографическая коллекция</div>
+                <div class="exhibit-content">
+                    <h3>Культура народов мира</h3>
+                    <p>Богатая коллекция предметов, отражающих культурные традиции и обычаи разных народов. Костюмы, украшения, предметы быта и религиозного культа.</p>
+                    <p>Экспозиция помогает понять единство и многообразие культурного наследия человечества.</p>
+                    <a href="#" class="read-more">Подробнее <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -283,24 +670,116 @@
     <!-- О музее -->
     <section id="about" class="section about">
         <h2 class="section-title">О нашем музее</h2>
-        <p>Наш виртуальный музей представляет уникальную коллекцию экспонатов, доступных для просмотра из любой точки мира. Мы используем современные технологии, включая виртуальные туры с панорамным обзором 360°, чтобы предоставить нашим посетителям незабываемый опыт.</p>
-        <p>Наша миссия - сохранять культурное и историческое наследие и делать его доступным для всех через цифровые технологии.</p>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Наш виртуальный музей представляет уникальную коллекцию экспонатов, доступных для просмотра из любой точки мира. Мы используем современные технологии, включая виртуальные туры с панорамным обзором 360°, чтобы предоставить нашим посетителям immersive опыт.</p>
+                <p>Основанный в 2010 году, музей continuously расширяет свои коллекции и внедряет инновационные подходы к представлению исторического и культурного наследия.</p>
+                <p>Наша миссия - сохранять культурное и историческое наследие и делать его доступным для всех через цифровые технологии. Мы believe, что образование и доступ к культурным ценностям должны быть available для каждого.</p>
+                
+                <div class="about-stats">
+                    <div class="stat">
+                        <i class="fas fa-building"></i>
+                        <h3>15+</h3>
+                        <p>Выставочных залов</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-image"></i>
+                        <h3>2500+</h3>
+                        <p>Экспонатов</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <h3>100k+</h3>
+                        <p>Посетителей в год</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>50+</h3>
+                        <p>Мероприятий ежегодно</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text">
+                <p>Музей активно сотрудничает с образовательными учреждениями, предлагая специальные программы для студентов и школьников. Наши виртуальные экскурсии позволяют учащимся со всего мира познакомиться с экспозициями, не выходя из класса.</p>
+                <p>Мы гордимся нашим исследовательским центром, где ученые и историки работают над изучением и сохранением артефактов. Результаты их работы regularly публикуются в научных журналах и представляются на международных конференциях.</p>
+                <p>В планах музея - дальнейшая цифровизация коллекций, создание интерактивных образовательных программ и расширение международного сотрудничества с другими культурными учреждениями.</p>
+                
+                <a href="#" class="btn" style="margin-top: 2rem;">Стать участником проекта</a>
+            </div>
+        </div>
     </section>
 
     <!-- Контакты -->
     <section id="contact" class="section">
         <h2 class="section-title">Контакты</h2>
         <div class="contact-info">
-            <p>Email: XXXXXXX@example.com</p>
-            <p>Телефон: +7 (XXX) XXX-XX-XX</p>
-            <p>Адрес: ул. XXXXXX, д. X, г. XXXXX</p>
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Адрес</h3>
+                <p>ул. Абсалямова, д. 29А, г. Казань, Россия</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>Телефон</h3>
+                <p>+7 (495) 123-45-67</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p>info@virtualmuseum.ru</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-clock"></i>
+                <h3>Часы работы</h3>
+                <p>Пн-Пт: 9:00-20:00</p>
+                <p>Сб-Вс: 10:00-22:00</p>
+            </div>
         </div>
     </section>
 
     <!-- Футер -->
     <footer>
-        <p>© 2025 Виртуальный музей Гимназии 179. 
-       <br>Все права защищены.</p>
+        <div class="footer-content">
+            <h3>Виртуальный музей</h3>
+            <p>Исследуйте культурное наследие с помощью современных технологий</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-vk"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <p>&copy; 2025 Виртуальный музей гимназии №179. 
+            <br>Все права защищены.</p>
+        </div>
     </footer>
+
+    <script>
+        // Анимация появления карточек при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const exhibitCards = document.querySelectorAll('.exhibit-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 100 * Array.from(exhibitCards).indexOf(entry.target));
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            exhibitCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Плавное появление элементов при загрузке
+            const heroContent = document.querySelector('.hero-content');
+            heroContent.style.animation = 'fadeIn 1.5s ease forwards';
+        });
+    </script>
 </body>
 </html>
