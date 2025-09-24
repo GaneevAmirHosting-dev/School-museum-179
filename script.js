@@ -4,7 +4,7 @@ const exhibitsData = [
         id: 1,
         title: "НАКАНУНЕ ВОЙНЫ",
         description: "22 июня 1941 года… Еще накануне жизнь казалась безмятежной…советские люди спешили домой после рабочей недели, влюбленные пары прогуливались по зелёным аллеям, а в школах прозвенел последний звонок…  Никто тогда не знал, что всего одна дата может сломать миллионы жизней и судеб, разметать в клочья мечты и надежды.",
-        panorama: "https://ваш-сайт-панорамы1.github.io/?panorama=exhibit1",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_1-179/?panorama=exhibit1",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit1",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_1/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit1"
@@ -13,7 +13,7 @@ const exhibitsData = [
         id: 2,
         title: "БРЕСТСКАЯ КРЕПОСТЬ",
         description: "Первыми удар вермахта приняли на себя советские пограничники. Навсегда в историю вписана оборона Брестской крепости. Приняв решение сопротивляться врагу, защитники Бреста героически обороняли крепость на протяжении месяца. Цитадель пала 23 июля.",
-        panorama: "https://ваш-сайт-панорамы1.github.io/?panorama=exhibit2",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_1-179/?panorama=exhibit2",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit2",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_2/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit2"
@@ -22,7 +22,7 @@ const exhibitsData = [
         id: 3,
         title: "БИТВА ПОД МОСКВОЙ",
         description: "В октябре 1941 года немцы сосредоточили главные силы на московском направлении. Началось немецкое наступление на Москву. Московская битва завершилась Победой Советской армии и развеяла миф о непобедимости фашистских войск.",
-        panorama: "https://ваш-сайт-панорамы1.github.io/?panorama=exhibit3",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_1-179/?panorama=exhibit3",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit3",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_3/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit3"
@@ -31,7 +31,7 @@ const exhibitsData = [
         id: 4,
         title: "ВАГОН-ГОСПИТАЛЬ",
         description: "В санитарных вагонах в годы войны не только перевозили раненых, но и оказывали необходимую медицинскую помощь. Бойцы называли врачей и медицинских сестер ангелами в белых халатах.",
-        panorama: "https://ваш-сайт-панорамы1.github.io/?panorama=exhibit4",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_1-179/?panorama=exhibit4",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit4",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_4/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit4"
@@ -40,7 +40,7 @@ const exhibitsData = [
         id: 5,
         title: "КАЗАНЬ – ГОРОД ТРУДОВОЙ ДОБЛЕСТИ",
         description: "Республика Татарстан в годы войны стала одной из тыловых баз Красной Армии, её промышленность перестроилась на выпуск оборонной продукции, жители активно участвовали в помощи фронту, столица республики г. Казань превратилась в крупный госпитальный центр. С первых дней войны женщины и дети Татарии встали за станки оборонных предприятий. Благодаря своему подвигу, Казань носит звание города трудовой доблести.",
-        panorama: "https://ваш-сайт-панорамы1.github.io/?panorama=exhibit5",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit5",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit5",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_5/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit5"
@@ -49,7 +49,7 @@ const exhibitsData = [
         id: 6,
         title: "ТЫЛ ФРОНТУ!",
         description: "Не только силами фронта били в те дни врага. Героический подвиг совершили труженики тыла. В эти суровые годы задача по обеспечению фронта легла на хрупкие женские плечи. Круглосуточно в цехах трудились подростки, женщины, пожилые люди, чтобы снабдить фронт всем необходимым.",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit6",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit5",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit6",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_6/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit6"
@@ -58,7 +58,7 @@ const exhibitsData = [
         id: 7,
         title: "БЛОКАДНЫЙ ЛЕНИНГРАД",
         description: "Одна из самых трагических страниц в истории 20 века – блокада Ленинграда. Ад для жителей начался 8 сентября 1941 года, когда гитлеровские войска замкнули кольцо вокруг города. 900 дней блокады стали символом ужаса и жестокости, но вместе с тем и героизма, непобедимости и стойкости советского народа…",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit7",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit6",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit7",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_7/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit7"
@@ -67,7 +67,7 @@ const exhibitsData = [
         id: 8,
         title: "СТАЛИНГРАДСКАЯ БИТВА",
         description: "17 июля 1942 года началась Сталинградская битва. К началу октября гитлеровцы овладели большей частью Сталинграда. Но шел отчаянный бой не только за каждый дом, но и за каждый этаж. Символом беспримерного мужества защитников Сталинграда стал «дом Павлова».",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit8",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit7",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit8",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_8/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit8"
@@ -76,7 +76,7 @@ const exhibitsData = [
         id: 9,
         title: "ОСВОБОЖДЕНИЕ ЕВРОПЫ",
         description: "В марте 1944 года Советские войска вышли на государственную границу СССР. Путь наших доблестных солдат к победе будет лежать через Европу. Шаг за шагом, город за городом, наша армия освободит народы Европы от гнёта фашизма.",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit9",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit8",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit9",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_9/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit9"
@@ -85,7 +85,7 @@ const exhibitsData = [
         id: 10,
         title: "ПОБЕДА",
         description: "С 16 апреля велись ожесточенные бои за Берлин, и вот 30 апреля ровно в 21 час 50 минут над зданием Рейхстага взвилось красное советское знамя. 1418 дней войны были позади.",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit10",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit8",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit10",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_10/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit10"
@@ -94,7 +94,7 @@ const exhibitsData = [
         id: 11,
         title: "ПАМЯТЬ",
         description: "Победа подарила жизнь будущим поколениям, но была оплачена очень дорогой ценой. 27 миллионов советских граждан пожертвовали собой ради мира на земле и свободы народов.",
-        panorama: "https://ваш-сайт-панорамы2.github.io/?panorama=exhibit11",
+        panorama: "https://ganeevamirhosting-dev.github.io/school-museum-panorams_2-179/?panorama=exhibit8",
         audio: "https://ваш-сайт-аудио.github.io/?audio=exhibit11",
         video: "https://drive.google.com/file/d/ВАШ_ID_ВИДЕО_11/preview",
         gallery: "https://ganeevamirhosting-dev.github.io/school-museum-gallery-179/?gallery=exhibit11"
